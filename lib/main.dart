@@ -2,19 +2,22 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:get_test/common/constant/dio.dart';
+import 'package:get_test/app/modules/login/login_controller.dart';
+import 'package:get_test/common/api/api.dart';
+import 'package:get_test/common/api/login.dart';
+import 'package:get_test/common/service/services.dart';
+import 'package:get_test/common/store/user.dart';
 
 import 'app/routes/app_pages.dart';
-import 'common/utils/storage.dart';
-import 'common/request/http_utils.dart';
 
 Future main() async{
-  WidgetsFlutterBinding.ensureInitialized();
 
-  await initStore();
+
+  await globalInit();
 
   runApp(
     GetMaterialApp(
+      theme: ThemeData(fontFamily: "SourceHanSansCN"),
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
@@ -24,13 +27,12 @@ Future main() async{
   );
 }
 
-Future<void> initStore() async {
-  // 初始化本地存储类d
-  await SpUtil().init();
-  // 初始化request类
-  HttpUtils.init(
-    baseUrl: DioConstant.BASEURL,
-  );
-  // 全局注入
+Future<void> globalInit() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Get.putAsync<StorageService>(() => StorageService().init());
+  Get.put<LoginProvider>(LoginProvider(),permanent: true);
+  await Get.putAsync<UserStore>(()=>UserStore().init());
+
   log("全局注入完成");
 }
