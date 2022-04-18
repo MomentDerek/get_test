@@ -50,7 +50,7 @@ class LoginView extends GetView<LoginController> {
                       //workId输入框
                       loginWorkIdWidget(
                         controller: controller,
-                        fontSize: context.width / 60,
+                        fontSize: context.height/ 5 * 4 / 16 * 9 / 40,
                       ),
                       SizedBox(
                         height: context.height / 5 * 4/ 25,
@@ -58,7 +58,7 @@ class LoginView extends GetView<LoginController> {
                       //密码输入框
                       loginPasswordWidget(
                         controller: controller,
-                        fontSize: context.width / 60,
+                        fontSize: context.height / 5 * 4 / 16 * 9/ 40,
                       ),
                       SizedBox(
                         height: context.height / 5 * 4/ 10,
