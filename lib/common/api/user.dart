@@ -2,28 +2,31 @@ import 'dart:convert';
 
 import 'package:get_test/app/data/model/response.dart';
 import 'package:get_test/common/api/base.dart';
-import 'package:get_test/common/constant/request.dart';
+import 'package:get_test/common/entity/user_info_update.dart';
+import 'package:get_test/common/entity/user_password_update.dart';
+import 'package:get_test/common/entity/user_register.dart';
 
 class UserProvider extends BaseProvider {
-  final String _client= OAUTH_CLIENT;
-  final String _secret= OAUTH_SECRET;
-
   Future<ResponseEntity> profile() => get("/api/user/info/")
-      .then((value){
-   return ResponseEntity.fromJson(value.body);
-  });
+      .then((value) => ResponseEntity.fromJson(value.body));
 
-  Future<ResponseEntity> checkToken(String token) => get(
-    "/oauth/check_token",
-    query: {"token": token},
-    headers: {
-      "Authorization":
-      'Basic ' + base64Encode(utf8.encode('$_client:$_secret'))
-    },
-  ).then((value) => ResponseEntity.fromJson(value.body));
+  Future<ResponseEntity> teamProfile() => get("/api/system/team")
+      .then((value) => ResponseEntity.fromJson(value.body));
+
+  Future<ResponseEntity> updateUserPassword(UserPasswordUpdateEntity entity) =>
+      post("/api/system/user/update_password", json.encode(entity.toJson()))
+          .then((value) => ResponseEntity.fromJson(value.body));
+
+  Future<ResponseEntity> register(UserRegisterEntity entity) =>
+      post("/api/system/user/register", json.encode(entity.toJson()))
+          .then((value) => ResponseEntity.fromJson(value.body));
+
+  Future<ResponseEntity> updateUserInfo(UserInfoUpdateEntity entity) =>
+      post("/api/system/user/update", json.encode(entity.toJson()))
+          .then((value) => ResponseEntity.fromJson(value.body));
 
   @override
-  void onInit(){
+  void onInit() {
     super.onInit();
   }
 }

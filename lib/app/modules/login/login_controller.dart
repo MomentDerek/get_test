@@ -29,6 +29,7 @@ class LoginController extends GetxController {
         await _userStore.getProfile();
         workIdEditController.clear();
         passwordEditController.clear();
+        print(_userStore.role);
         //后面就应该跳转到首页
         Get.offNamed(Routes.HOME);
         print("登录成功");

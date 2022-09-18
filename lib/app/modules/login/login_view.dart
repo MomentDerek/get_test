@@ -10,77 +10,83 @@ import 'login_controller.dart';
 class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
+    double cardHeight = context.height / 5 * 4;
+    double cardWidth = cardHeight / 16 * 9;
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Stack(children: [
-          //背景渐变色
-          backgroundColorLayer(),
-          //动态气泡
-          Positioned.fill(
-            child: BubbleWidget(),
-          ),
-          //背景高斯模糊
-          backgroundBlueLayer(),
-          Positioned(
-            child: Center(
-              child: Card(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(context.height / 25)),
-                ),
-                child: Container(
-                  height: context.height / 5 * 4,
-                  width: context.height / 5 * 4 / 16 * 9,
-                  padding: EdgeInsets.symmetric(
-                      horizontal: context.height / 5 * 4/ 20,
-                      vertical: context.height / 5 * 4/ 20),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: context.height / 5 * 4/ 20,
-                      ),
-                      //标题头
-                      loginHeaderWidget(),
-                      SizedBox(
-                        height: context.height / 5 * 4/ 10,
-                      ),
-                      //workId输入框
-                      loginWorkIdWidget(
-                        controller: controller,
-                        fontSize: context.height/ 5 * 4 / 16 * 9 / 40,
-                      ),
-                      SizedBox(
-                        height: context.height / 5 * 4/ 25,
-                      ),
-                      //密码输入框
-                      loginPasswordWidget(
-                        controller: controller,
-                        fontSize: context.height / 5 * 4 / 16 * 9/ 40,
-                      ),
-                      SizedBox(
-                        height: context.height / 5 * 4/ 10,
-                      ),
-                      //登录按钮
-                      Container(
-                        height: context.height / 5 * 4/ 20,
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () => controller.login(),
-                          child: Text("登录"),
+      body: SafeArea(
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          child: Stack(children: [
+            //背景渐变色
+            backgroundColorLayer(),
+            //动态气泡
+            Positioned.fill(
+              child: BubbleWidget(),
+            ),
+            //背景高斯模糊
+            backgroundBlueLayer(),
+            Positioned(
+              child: Center(
+                child: Card(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(context.height / 25)),
+                  ),
+                  child: Container(
+                    height: cardHeight,
+                    width: cardWidth,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: cardHeight/ 20,
+                        vertical: cardHeight/ 20),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: cardHeight/ 20,
                         ),
-                      ),
-                      Expanded(child: Container())
-                    ],
+                        //标题头
+                        loginHeaderWidget(fontSize:cardWidth/10 ),
+                        SizedBox(
+                          height: cardHeight/ 5,
+                        ),
+                        //workId输入框
+                        loginWorkIdWidget(
+                          controller: controller,
+                          fontSize: cardWidth / 24,
+                          contentPadding: cardWidth/20,
+                        ),
+                        SizedBox(
+                          height: cardHeight/ 25,
+                        ),
+                        //密码输入框
+                        loginPasswordWidget(
+                          controller: controller,
+                          fontSize: cardWidth/ 24,
+                          contentPadding: cardWidth/20,
+                        ),
+                        SizedBox(
+                          height: cardHeight/ 4,
+                        ),
+                        //登录按钮
+                        Container(
+                          height: cardHeight/ 20,
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () => controller.login(),
+                            child: Text("登录"),
+                          ),
+                        ),
+                        Expanded(child: Container())
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          LoginCloseButton()
-        ]),
+            LoginCloseButton()
+          ]),
+        ),
       ),
     );
   }
@@ -88,50 +94,56 @@ class LoginView extends GetView<LoginController> {
 
 class loginPasswordWidget extends StatelessWidget {
   const loginPasswordWidget(
-      {Key? key, required this.controller, required this.fontSize})
+      {Key? key, required this.controller, required this.fontSize ,required this.contentPadding})
       : super(key: key);
 
+  final double contentPadding;
   final LoginController controller;
-  final fontSize;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
     return Obx(()=>TextFieldWidget(
-      hintText: "请输入密码",
-      fontSize: fontSize,
-      iconSize: fontSize*1.1,
+        hintText: "请输入密码",
+        fontSize: fontSize,
+        iconSize: fontSize*1.1,
+      contentPadding: contentPadding,
+
       prefixIconData: Icons.lock_open_outlined,
-      suffixIconData: Icons.visibility,
-      obscureText: controller.passwordIsObscure.value,
-      submit: (value) => {},
-      onChanged: (value) => controller.password(value),
-      onTap: () => controller.passwordIsObscure.toggle(),
-      controller: controller.passwordEditController,
-      focusNode: controller.passwordFocusNode,
-    ));
+        suffixIconData: Icons.visibility,
+        obscureText: controller.passwordIsObscure.value,
+        submit: (value) => {},
+        onChanged: (value) => controller.password(value),
+        onTap: () => controller.passwordIsObscure.toggle(),
+        controller: controller.passwordEditController,
+        focusNode: controller.passwordFocusNode,
+      ),
+    );
   }
 }
 
 class loginWorkIdWidget extends StatelessWidget {
   const loginWorkIdWidget(
-      {Key? key, required this.controller, required this.fontSize})
+      {Key? key, required this.controller, required this.fontSize,required this.contentPadding})
       : super(key: key);
 
+  final double contentPadding;
   final LoginController controller;
   final double fontSize;
 
   @override
   Widget build(BuildContext context) {
     return TextFieldWidget(
-      hintText: "请输入学号/工号",
-      fontSize: fontSize,
-      iconSize: fontSize*1.1,
-      prefixIconData: Icons.person_pin_outlined,
-      obscureText: false,
-      submit: (value) => {},
-      onChanged: (value) => controller.workId(value),
-      controller: controller.workIdEditController,
-      focusNode: controller.workIdFocusNode,
+        hintText: "请输入学号/工号",
+        fontSize: fontSize,
+        iconSize: fontSize*1.1,
+        contentPadding: contentPadding,
+        prefixIconData: Icons.person_pin_outlined,
+        obscureText: false,
+        submit: (value) => {},
+        onChanged: (value) => controller.workId(value),
+        controller: controller.workIdEditController,
+        focusNode: controller.workIdFocusNode,
     );
   }
 }
@@ -139,17 +151,20 @@ class loginWorkIdWidget extends StatelessWidget {
 class loginHeaderWidget extends StatelessWidget {
   const loginHeaderWidget({
     Key? key,
+    double this.fontSize = 40
   }) : super(key: key);
+
+  final double? fontSize;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
           "欢迎回来",
           style: TextStyle(
-              fontSize: 40,
+              fontSize: fontSize,
               color: Colors.blueGrey,
               fontWeight: FontWeight.w400),
         ),

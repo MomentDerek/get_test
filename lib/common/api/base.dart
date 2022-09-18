@@ -25,6 +25,7 @@ class BaseProvider extends GetConnect {
     });
 
     httpClient.addAuthenticator((Request request) {
+      if(UserStore.to.refreshToken == '') return request;
       // 刷新token
       var responseFuture = get(
         "/oauth/token",

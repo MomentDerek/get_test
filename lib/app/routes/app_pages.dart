@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 
-import 'package:get_test/app/modules/home/bindings/home_binding.dart';
-import 'package:get_test/app/modules/home/views/home_view.dart';
+import 'package:get_test/app/modules/home/home_binding.dart';
+import 'package:get_test/app/modules/home/home_view.dart';
+import 'package:get_test/app/modules/home/widget/team/team_view.dart';
 import 'package:get_test/app/modules/login/login_binding.dart';
 import 'package:get_test/app/modules/login/login_view.dart';
 

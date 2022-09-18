@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get_test/common/utils/color_utils.dart';
+import 'package:get_test/common/utils/color.dart';
 
 import 'bubble_bean.dart';
 import 'bubble_painter.dart';
@@ -49,7 +49,7 @@ class _BubbleWidgetState extends State<BubbleWidget>
     for (var i = 0; i < 20; i++) {
       BobbleBean particle = new BobbleBean();
       //获取随机透明度的白色颜色
-      particle.color = ColorUtils.getRandonWhightColor(_random);
+      particle.color = ColorUtils.getRandomWhiteColor(_random);
       //指定一个位置 每次绘制时还会修改
       particle.postion = Offset(-1, -1);
       //气泡运动速度

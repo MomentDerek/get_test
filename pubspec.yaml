@@ -6,23 +6,31 @@ environment:
   sdk: '>=2.16.2 <3.0.0'
 
 dependencies: 
+  flutter_svg: ^1.0.3
   cupertino_icons: ^1.0.2
   get: 4.6.1
   oauth2: 2.0.0
   dio: 4.0.6
   shared_preferences: 2.0.13
   connectivity_plus: 2.3.0
+  flutter_form_builder: 7.1.1
+  jwt_decoder: 2.0.1
+  flutter_chat_ui: ^1.5.8
   flutter: 
     sdk: flutter
+  json_annotation: ^4.4.0
 
-dev_dependencies: 
+dev_dependencies:
   flutter_lints: ^1.0.0
   lints: 1.0.1
-  flutter_test: 
+  flutter_test:
     sdk: flutter
+  json_serializable:
+  build_runner:
 
-flutter: 
-  uses-material-design: true
+flutter:
+  assets:
+    - assets/icons/outline/
   fonts:
     - family: SourceHanSansCN
       fonts:
@@ -40,3 +48,5 @@ flutter:
           weight: 600
         - asset: fonts/SourceHanSansCN-Heavy.otf
           weight: 700
+  uses-material-design: true
+

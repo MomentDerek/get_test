@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_test/app/modules/login/login_controller.dart';
 import 'package:get_test/common/api/api.dart';
+import 'package:get_test/common/api/chat.dart';
 import 'package:get_test/common/api/login.dart';
 import 'package:get_test/common/service/services.dart';
 import 'package:get_test/common/store/user.dart';
@@ -33,6 +34,7 @@ Future<void> globalInit() async {
   await Get.putAsync<StorageService>(() => StorageService().init());
   Get.put<LoginProvider>(LoginProvider(),permanent: true);
   await Get.putAsync<UserStore>(()=>UserStore().init());
+  Get.put<ChatProvider>(ChatProvider(),permanent: true);
 
   log("全局注入完成");
 }
